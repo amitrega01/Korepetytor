@@ -1,9 +1,12 @@
 import React, { setGlobal } from 'reactn';
+import { View } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import FirstRunScreen from './src/screens/FirstRunScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 
 const MainNavigator = createStackNavigator({
-  FirstRun: { screen: FirstRunScreen }
+  FirstRun: { screen: FirstRunScreen },
+  SignUp: { screen: SignUpScreen }
 });
 
 const AppContainer = createAppContainer(MainNavigator);
