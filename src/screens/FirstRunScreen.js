@@ -19,7 +19,7 @@ export class FirstRunScreen extends React.Component {
           title="Mam już konto"
           onPress={() => {
             console.log('BTN > SIGN IN');
-            this.props.navigation.navigate('FirstRun');
+            this.props.navigation.navigate('SignIn');
           }}
           width={250}
         />
