@@ -24,6 +24,6 @@ export default (styles = StyleSheet.create({
     borderRadius: 16,
     borderColor: 'rgba(0,0,0,0.5)',
     borderWidth: 0.25,
-    marginTop: 16
+    marginBottom: 16
   }
 }));
