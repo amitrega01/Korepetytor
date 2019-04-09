@@ -2,6 +2,7 @@ import React from 'reactn';
 import { Text, KeyboardAvoidingView, TextInput } from 'react-native';
 
 import BackButton from '../components/BackButton';
+import BlackButton from '../components/BlackButton';
 import Styles from '../consts/Styles';
 
 export class SignUpScreen extends React.Component {
@@ -9,18 +10,34 @@ export class SignUpScreen extends React.Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
-      passwordConfirm: '',
-      firstName: '',
-      lastName: ''
+      email: 'amitrega01@gmail.com',
+      password: 'insu1Haslo',
+      passwordConfirm: 'insu1Haslo',
+      firstName: 'Adam',
+      lastName: 'Mitręga',
+      accountType: 0
     };
   }
 
   static navigationOptions = {
     header: null
   };
+  signUp = () => {
+    if (this.state.password == this.state.passwordConfirm)
+      if (this.state.password.length >= 8)
+        if (this.state.email && this.state.firstName && this.state.lastName) {
+          let user = {
+            Email: this.state.email,
+            Password: this.state.password,
+            FirstName: this.state.firstName,
+            LastName: this.state.lastName
+          };
 
+          //TODO: zamiast clg to post do api
+          console.log('DO API: ');
+          console.log(JSON.stringify(user));
+        }
+  };
   render() {
     return (
       <KeyboardAvoidingView style={Styles.wrapper} behavior="padding" enabled>
@@ -60,6 +77,13 @@ export class SignUpScreen extends React.Component {
           keyboardType="default"
           value={this.state.lastName ? this.state.lastName : null}
           onChangeText={text => this.setState({ lastName: text })}
+        />
+        <BlackButton
+          title="Zarejestruj"
+          width={80 + '%'}
+          onPress={() => {
+            console.log(this.signUp());
+          }}
         />
       </KeyboardAvoidingView>
     );
