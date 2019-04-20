@@ -32,10 +32,29 @@ export class SignUpScreen extends React.Component {
             FirstName: this.state.firstName,
             LastName: this.state.lastName
           };
-
-          //TODO: zamiast clg to post do api
-          console.log('DO API: ');
-          console.log(JSON.stringify(user));
+          let data = {
+            method: 'POST',
+            credentials: 'same-origin',
+            mode: 'same-origin',
+            body: JSON.stringify(user),
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            }
+          };
+          return fetch(
+            'https://ocofn1ofy2.execute-api.eu-west-1.amazonaws.com/dev/api/user',
+            data
+          )
+            .then(response => response.json()) // promise
+            .then(json => {
+              alert('Pomyślnie utworzono konto!');
+              console.log(json);
+              this.setGlobal({
+                user: JSON.parse(json)
+              });
+              this.props.navigation.navigate('StudentHome');
+            });
         }
   };
   render() {
