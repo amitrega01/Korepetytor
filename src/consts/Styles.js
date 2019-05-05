@@ -25,5 +25,11 @@ export default (styles = StyleSheet.create({
     borderColor: 'rgba(0,0,0,0.5)',
     borderWidth: 0.25,
     marginBottom: 16
-  }
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  headerUser: {}
 }));

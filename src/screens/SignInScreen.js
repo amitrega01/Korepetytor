@@ -1,5 +1,11 @@
 import React from 'reactn';
-import { Text, KeyboardAvoidingView, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  Switch,
+  KeyboardAvoidingView,
+  TextInput
+} from 'react-native';
 import BackButton from '../components/BackButton';
 import BlackButton from '../components/BlackButton';
 import Styles from '../consts/Styles';
@@ -12,20 +18,45 @@ export class SignInScreen extends React.Component {
         this.state.email
       }&password=${this.state.password}`
     );
-    var response = `{
-      "Id": "387a394c-a28b-400f-a585-d20a77594a3a",
-      "Email": "amitrega0@gmail.com",
-      "Password": "insu1Haslo",
-      "FirstName": "Adam",
-      "LastName": "Mitręga",
-      "AccountType": 1
-    }`;
-    var user = JSON.parse(response);
-    this.setGlobal({ user: user });
-    if (user.AccountType == 0) {
-      this.props.navigation.navigate('StudentHome');
+    let data = {
+      method: 'GET',
+      credentials: 'same-origin',
+      mode: 'same-origin',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
+    if (this.state.coach) {
+      var response = fetch(
+        `https://ocofn1ofy2.execute-api.eu-west-1.amazonaws.com/dev/api/coach/login?email=${
+          this.state.email
+        }&password=${this.state.password}`,
+        data
+      )
+        .then(response => response.json())
+        .then(json => {
+          console.log(JSON.parse(json));
+          this.setGlobal({
+            user: JSON.parse(json)
+          });
+          this.props.navigation.navigate('CoachHome');
+        });
     } else {
-      this.props.navigation.navigate('CoachHome');
+      var response = fetch(
+        `https://ocofn1ofy2.execute-api.eu-west-1.amazonaws.com/dev/api/user/login?email=${
+          this.state.email
+        }&password=${this.state.password}`,
+        data
+      )
+        .then(response => response.json())
+        .then(json => {
+          console.log(JSON.parse(json));
+          this.setGlobal({
+            user: JSON.parse(json)
+          });
+          this.props.navigation.navigate('StudentHome');
+        });
     }
   };
 
@@ -37,7 +68,8 @@ export class SignInScreen extends React.Component {
 
     this.state = {
       email: 'amitrega01@gmail.com',
-      password: 'insu1Haslo'
+      password: 'insu1Haslo',
+      coach: false
     };
   }
   render() {
@@ -59,12 +91,24 @@ export class SignInScreen extends React.Component {
           value={this.state.password ? this.state.password : null}
           onChangeText={text => this.setState({ password: text })}
         />
+        <View style={Styles.row}>
+          <Switch
+            value={this.state.coach}
+            onValueChange={() =>
+              this.setState({
+                coach: !this.state.coach
+              })
+            }
+          />
+          <Text>Jestem korepetytorem</Text>
+        </View>
         <BlackButton
           title="Zaloguj"
           width={80 + '%'}
           onPress={() => {
             console.log(this.signIn());
           }}
+          tintColor={'rgba(0,0,0,1)'}
         />
       </KeyboardAvoidingView>
     );

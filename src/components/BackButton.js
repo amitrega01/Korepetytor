@@ -9,7 +9,7 @@ export default class BackButton extends Component {
         onPress={this.props.onPress}
         style={{
           position: 'absolute',
-          top: 16,
+          top: 32,
           left: 16
         }}
       >
