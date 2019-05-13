@@ -5,7 +5,8 @@ export default (styles = StyleSheet.create({
     paddingTop: 32,
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#F7F7F7'
   },
   title: {
     fontSize: 42,
