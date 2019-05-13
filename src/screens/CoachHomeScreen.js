@@ -1,6 +1,8 @@
 import React from 'reactn';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import Styles from '../consts/Styles';
+import NotificationsContainer from '../containers/NotificationsContainer';
+import BlackButton from '../components/BlackButton';
 export class CoachHomeScreen extends React.Component {
   static navigationOptions = {
     header: null
@@ -18,8 +20,16 @@ export class CoachHomeScreen extends React.Component {
           <Text style={styles.helloText}>
             Witaj {this.global.user.firstName}!
           </Text>
-          <View style={styles.picPlaceholder} />
+          <TouchableOpacity
+            style={styles.picPlaceholder}
+            onPress={() =>
+              this.props.navigation.navigate('CoachProfile', {
+                userID: this.global.user.id
+              })
+            }
+          />
         </View>
+        <NotificationsContainer />
       </View>
     );
   }
